@@ -8,18 +8,18 @@ import {
   ContainerForm,
   ContainerImg,
   Description,
+  FlexTwo,
   GroupInput,
   Heading,
+  Login,
   Logo,
   NewUser,
   Page,
   FormContainer,
-  CheckBox,
-  Signup,
   Section,
 } from "../../features/style/login_singup";
 
-const LoginPage = () => {
+const SignUp = () => {
   const onSubmit = (form) => {
     getToken({
       username: form.values.username,
@@ -31,9 +31,10 @@ const LoginPage = () => {
   return (
     <Formik
       initialValues={{
+        fname: "",
+        lname: "",
         email: "",
         password: "",
-        check_box: true,
       }}
       validationSchema={Yup.object({
         email: Yup.string()
@@ -46,6 +47,8 @@ const LoginPage = () => {
             /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
             "Niepoprawne hasło"
           ),
+        fname: Yup.string().required("Proszę wpisać swoje imię"),
+        lname: Yup.string().required("Proszę wpisać swoje nazwisko"),
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
@@ -57,15 +60,30 @@ const LoginPage = () => {
       <Page>
         <Section>
           <ContainerForm>
-            <Heading>Logowanje</Heading>
+            <Heading>Stwórz kąto</Heading>
             <NewUser>
-              <Description>Nowy urzytkownik?</Description>
-              <Signup>
-                <Link to="/signup">Utwurz kąto</Link>
-              </Signup>
+              <Description>Masz już kąto?</Description>
+              <Login>
+                <Link to="/login">Zaloguj się!</Link>
+              </Login>
             </NewUser>
             <FormContainer>
               <Form>
+                <FlexTwo>
+                  <GroupInput>
+                    <Field name="fname" type="text" placeholder="Imię" />
+                    <small>
+                      <ErrorMessage name="fname" />
+                    </small>
+                  </GroupInput>
+                  <GroupInput>
+                    <Field name="lname" type="text" placeholder="Nazwisko" />
+                    <small>
+                      <ErrorMessage name="lname" />
+                    </small>
+                  </GroupInput>
+                </FlexTwo>
+
                 <GroupInput>
                   <Field name="email" type="email" placeholder="Adres e-mail" />
                   <small>
@@ -84,21 +102,13 @@ const LoginPage = () => {
                   </small>
                 </GroupInput>
 
-                <CheckBox>
-                  <label>
-                    <Field name="check_box" type="checkbox" />
-                    <span>&#10003;</span>
-                  </label>
-                  <span>Pozostań zalogowanym</span>
-                </CheckBox>
-
-                <ButtonStyle type="submit">Zaloguj</ButtonStyle>
+                <ButtonStyle type="submit">Zarejestrój się</ButtonStyle>
               </Form>
             </FormContainer>
           </ContainerForm>
 
           <ContainerImg>
-            <Logo src="images/logo-cut.png" alt="logo" />
+            <Logo src="/images/logo-cut.png" />
           </ContainerImg>
         </Section>
       </Page>
@@ -106,4 +116,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUp;
