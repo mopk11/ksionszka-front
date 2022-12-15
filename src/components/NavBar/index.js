@@ -1,13 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const NavBar = (props) => {
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <Logo src="/images/logo-cut.png" />
+      <Logo src="/images/logo-cut.png" onClick={() => navigate("/")} />
       <ButtonsWrapper>
         {props.buttons.map((button) => (
-          <Button key={button.name} onClick={button.redirect}>{button.name}</Button>
+          <Button key={button.name} onClick={button.redirect}>
+            {button.name}
+          </Button>
         ))}
       </ButtonsWrapper>
     </Container>
@@ -17,18 +22,24 @@ const NavBar = (props) => {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 20%;
-  background-color: #2d311877;
+  height: 8em;
+  background-color: #2d311837;
+  z-index: 99;
 
   @media (max-width: 928px) {
     flex-direction: column;
     height: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
   }
 `;
 
 const Logo = styled.img`
   padding: 1em;
   margin-left: 1em;
+  cursor: pointer;
 
   @media (max-width: 928px) {
     height: 100px;

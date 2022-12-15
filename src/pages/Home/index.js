@@ -1,26 +1,36 @@
 import React from "react";
-import NavBar from "../../components/NavBar";
 import styled from "styled-components";
-import { useUserNavbarLinks } from "../../utils/navbar_utils";
+import Page from "../../components/Page";
 
 const HomePage = () => {
   return (
-    <Page>
-      <NavBar buttons={useUserNavbarLinks()} />
-      <TextWrapper>
-        <Heading>Witamy na stronie ksionszka.pl</Heading>
-        <Description>
-          Nasza strona jest super, cieszymy się, że wpadłeś :)
-        </Description>
-      </TextWrapper>
-    </Page>
+    <StyledPage>
+      <Wrapper>
+        <TextWrapper>
+          <Heading>Witamy na stronie ksionszka.pl</Heading>
+          <Description>
+            Nasza strona jest super, cieszymy się, że wpadłeś :)
+          </Description>
+        </TextWrapper>
+      </Wrapper>
+    </StyledPage>
   );
 };
 
-const Page = styled.div`
-  min-height: 100%;
+const StyledPage = styled(Page)`
   background-image: url("/images/homepage-background.png");
   background-size: cover;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+
+  @media (max-width: 928px) {
+    align-items: center;
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -28,11 +38,11 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 2em;
-  margin-left: 30%;
-  margin-top: 10em;
+  margin-right: 5em;
+  min-height: calc(100vh - 8em);
 
   @media (max-width: 928px) {
-    padding: 10em 0 20em;
+    padding: 0 0 10em;
     margin: 0;
     gap: 1em;
   }
