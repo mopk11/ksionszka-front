@@ -15,6 +15,7 @@ import { useAdminNavbarLinks, useUserNavbarLinks } from "./utils/navbar_utils";
 import AboutUsPage from "./pages/AboutUs";
 import MyAccountPage from "./pages/MyAccount";
 import LogOutPage from "./pages/LogOut";
+import SignUpPage from "./pages/Signup";
 
 const App = () => {
   // const isLoggedIn = localStorage.getItem("token") !== null;
@@ -25,16 +26,20 @@ const App = () => {
     const userLinks = useUserNavbarLinks();
     const location = useLocation();
 
-    if (!isLoggedIn && location.pathname !== "/login") {
+    const isLoginOrSignUp = ~["/login", "/signup"].indexOf(location.pathname);
+
+    if (!isLoggedIn && !isLoginOrSignUp) {
       return <Navigate to="/login" />;
     }
-    if (isLoggedIn && location.pathname === "/login") {
+    if (isLoggedIn && isLoginOrSignUp) {
       return <Navigate to="/" />;
     }
 
     return (
       <Page>
-        <NavBar buttons={isUserAnAdmin() ? adminLinks : userLinks} />
+        {!isLoginOrSignUp && (
+          <NavBar buttons={isUserAnAdmin() ? adminLinks : userLinks} />
+        )}
         <RoutesWrapper>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
@@ -43,6 +48,7 @@ const App = () => {
             <Route path="/account" element={<MyAccountPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/logout" element={<LogOutPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
           </Routes>
         </RoutesWrapper>
       </Page>

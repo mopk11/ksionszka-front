@@ -40,12 +40,7 @@ const LoginPage = () => {
           .email("Nieprawidłowy adres e-mail")
           .required("Proszę wprowadzić e-mail"),
         password: Yup.string()
-          .min(6, "Hasło musi składać się z co najmniej 6 znaków")
           .required("Proszę wprowadzić hasło")
-          .matches(
-            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-            "Niepoprawne hasło"
-          ),
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
@@ -74,11 +69,7 @@ const LoginPage = () => {
                 </GroupInput>
 
                 <GroupInput>
-                  <Field
-                    name="password"
-                    type="password"
-                    placeholder="Chasło"
-                  />
+                  <Field name="password" type="password" placeholder="Chasło" />
                   <small>
                     <ErrorMessage name="password" />
                   </small>
