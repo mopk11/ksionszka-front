@@ -10,16 +10,19 @@ import HomePage from "./pages/Home";
 import SearchPage from "./pages/Search";
 import NavBar from "./components/NavBar";
 import styled from "styled-components";
-import { isUserAnAdmin } from "./service/user";
+import { getToken, isUserAnAdmin } from "./service/user";
 import { useAdminNavbarLinks, useUserNavbarLinks } from "./utils/navbar_utils";
 import AboutUsPage from "./pages/AboutUs";
 import MyAccountPage from "./pages/MyAccount";
 import LogOutPage from "./pages/LogOut";
 import SignUpPage from "./pages/Signup";
+import BookingsPage from "./pages/Bookings";
+import BorrowingsPage from "./pages/Borrowings";
+import UserPage from "./pages/User";
+import UsersPage from "./pages/Users";
 
 const App = () => {
-  // const isLoggedIn = localStorage.getItem("token") !== null;
-  const isLoggedIn = true;
+  const isLoggedIn = !!getToken();
 
   const RouterContent = () => {
     const adminLinks = useAdminNavbarLinks();
@@ -49,6 +52,10 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/logout" element={<LogOutPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/reservations" element={<BookingsPage />} />
+            <Route path="/borrowings" element={<BorrowingsPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/users/{id}" element={<UserPage />} />
           </Routes>
         </RoutesWrapper>
       </Page>

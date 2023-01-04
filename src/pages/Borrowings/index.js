@@ -1,37 +1,40 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import List, { ListRow, ListRowElement } from "../../components/List";
 import Page from "../../components/Page";
-import Select from "../../components/Select";
 import TextField from "../../components/TextField";
 import { findBooksInLibrary } from "../../service/books";
-import { createReservation } from "../../service/reservations";
+import { createLoan } from "../../service/loans";
 
-const SearchPage = () => {
+const BorrowingsPage = () => {
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
-  const [year, setYear] = React.useState("");
-  const [genre, setGenre] = React.useState("");
+  const [number, setNumber] = React.useState("");
   const [results, setResults] = React.useState([]);
-  const navigate = useNavigate();
+  const [borrowingPopupBook, setBorrowingPopupBook] = React.useState();
+  const [borrowingPopupEmail, setBorrowingPopupEmail] = React.useState();
 
-  const handleBooking = (id) => {
-    createReservation(id).then(() => navigate("/account"));
+  const handleBorrow = (id, email) => {
+    if (borrowingPopupEmail.length < 1) return;
+    createLoan(id, email)
+      .then(() => fetchBooks())
+      .then(() => {
+        setBorrowingPopupEmail(undefined);
+        setBorrowingPopupBook(undefined);
+      });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchBooks();
-  }
+  };
 
   const fetchBooks = () => {
     findBooksInLibrary({
       bookNameLike: title.length > 0 ? title : undefined,
       authorLike: author.length > 0 ? author : undefined,
-      releaseYear: year.length > 0 ? year : undefined,
-      genre: genre.length > 0 ? genre : undefined,
+      number: number.length > 0 ? number : undefined,
     }).then((books) => setResults(books));
   };
 
@@ -39,7 +42,29 @@ const SearchPage = () => {
   React.useEffect(() => fetchBooks(), []);
 
   return (
-    <StyledPage>
+    <Page>
+      {borrowingPopupBook && (
+        <>
+          <PopupWrapper onClick={() => setBorrowingPopupBook(undefined)}>
+            <Popup onClick={(e) => e.stopPropagation()}>
+              <TextField
+                required
+                value={borrowingPopupEmail}
+                onChange={(e) => setBorrowingPopupEmail(e.target.value)}
+                placeholder="Użytkownik"
+              />
+              <Button
+                onClick={() =>
+                  handleBorrow(borrowingPopupBook, borrowingPopupEmail)
+                }
+              >
+                Wypożycz
+              </Button>
+            </Popup>
+          </PopupWrapper>
+          <Overlay />
+        </>
+      )}
       <Wrapper>
         <FiltersWrapper>
           <FiltersForm onSubmit={handleSubmit}>
@@ -47,7 +72,7 @@ const SearchPage = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               name="title"
-              placeholder="Tytół"
+              placeholder="Tytuł"
             />
             <TextField
               value={author}
@@ -56,16 +81,10 @@ const SearchPage = () => {
               placeholder="Autor"
             />
             <TextField
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              name="year"
-              placeholder="Rok wydania"
-            />
-            <Select
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-              name="genre"
-              placeholder="Gatónek"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              name="number"
+              placeholder="Nr katalogowy"
             />
             <Button type="submit">Wyszukaj</Button>
           </FiltersForm>
@@ -82,21 +101,18 @@ const SearchPage = () => {
                   Rok wydania: {result.release.releaseYear}
                 </ListRowElement>
                 <ListRowElement button>
-                  <Button onClick={handleBooking}>Rezerwuj</Button>
+                  <Button onClick={() => setBorrowingPopupBook(result.id)}>
+                    Wypożycz
+                  </Button>
                 </ListRowElement>
               </ListRow>
             ))}
           </StyledList>
         </ResultsWrapper>
       </Wrapper>
-    </StyledPage>
+    </Page>
   );
 };
-
-const StyledPage = styled(Page)`
-  background-image: url("/images/search-background.png");
-  background-size: cover;
-`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -127,7 +143,13 @@ const FiltersForm = styled.form`
   gap: 5em;
   align-items: flex-end;
   width: 100%;
-  max-width: 30em;
+  max-width: 40em;
+  margin-right: 5em;
+
+  @media (max-width: 928px) {
+    margin: 0;
+    align-items: center;
+  }
 `;
 
 const ResultsWrapper = styled.div`
@@ -145,4 +167,39 @@ const StyledList = styled(List)`
   max-height: calc(100vh - 8em - 10em);
 `;
 
-export default SearchPage;
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000;
+  opacity: 0.7;
+  z-index: 99;
+`;
+
+const PopupWrapper = styled.div`
+  width: 100%;
+  height: calc(100% - 8em);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  @media (max-width: 928px) {
+    height: calc(100% - 30em)
+  }
+`;
+
+const Popup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  background-color: #fff;
+  border-radius: 15px;
+  border: 1px solid #707070;
+  padding: 5em;
+`;
+
+export default BorrowingsPage;

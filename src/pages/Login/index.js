@@ -1,8 +1,8 @@
 //import React, { useRef, useState, useEffect } from "react";
-import { getToken } from "../../service/user";
+import { fetchToken } from "../../service/user";
 import * as Yup from "yup";
 import { Formik, Field, ErrorMessage, Form } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ButtonStyle,
   ContainerForm,
@@ -20,14 +20,8 @@ import {
 } from "../../features/style/login_singup";
 
 const LoginPage = () => {
-  const onSubmit = (form) => {
-    getToken({
-      username: form.values.username,
-      password: form.values.password,
-    }).then((token) => localStorage.setItem("token", token));
-  };
+  const navigate = useNavigate();
 
-  // formik i yup
   return (
     <Formik
       initialValues={{
@@ -39,14 +33,10 @@ const LoginPage = () => {
         email: Yup.string()
           .email("Nieprawidłowy adres e-mail")
           .required("Proszę wprowadzić e-mail"),
-        password: Yup.string()
-          .required("Proszę wprowadzić hasło")
+        password: Yup.string().required("Proszę wprowadzić hasło"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+      onSubmit={(values) => {
+        fetchToken(values.email, values.password).then(() => navigate("/"));
       }}
     >
       <Page>

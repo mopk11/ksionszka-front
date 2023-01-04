@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Panel from "../Panel";
 
 const List = (props) => {
-  return <Wrapper className={props.className}>{props.children}</Wrapper>;
+  return <Wrapper {...props} />;
 };
 
 const Wrapper = styled(Panel)`

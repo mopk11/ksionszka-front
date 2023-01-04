@@ -1,41 +1,51 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import List, { ListRow, ListRowElement } from "../../components/List";
 import Page from "../../components/Page";
-import { fetchReservations } from "../../service/reservations";
+import { extendLoan, fetchLoans } from "../../service/loans";
+import {
+  cancelReservation,
+  fetchReservations,
+} from "../../service/reservations";
 
 const MyAccountPage = () => {
   const [booked, setBooked] = React.useState([]);
   const [borrowed, setBorrowed] = React.useState([]);
-  const navigate = useNavigate();
 
   const fetchData = () => {
     Promise.all([
       fetchReservations().then((reservations) => setBooked(reservations)),
+      fetchLoans().then((loans) => setBorrowed(loans)),
     ]);
   };
 
-  const handleRenew = (id) => {};
+  const handleRenew = (id) => {
+    extendLoan(id);
+  };
 
-  const handleCancelBooking = (id) => {};
+  const handleCancelBooking = (id) => {
+    cancelReservation(id);
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Page>
       <Wrapper>
         <Title>Wypożyczone</Title>
         <List>
-          <ListRow>
+          <ListRow border>
             <ListRowElement header>Tytuł</ListRowElement>
             <ListRowElement header>Autor</ListRowElement>
             <ListRowElement header>Nr Katalogowy</ListRowElement>
             <ListRowElement header>Data wypożyczenia</ListRowElement>
             <ListRowElement header>Termin oddania</ListRowElement>
-            {/* <ListRowElement header>Opłata</ListRowElement> */}
           </ListRow>
           {borrowed.map((borrowing) => (
-            <StyledListRow>
+            <ListRow>
               <ListRowElement>{borrowing.book.release.title}</ListRowElement>
               <ListRowElement>{borrowing.book.release.author}</ListRowElement>
               <ListRowElement>
@@ -44,7 +54,6 @@ const MyAccountPage = () => {
               <ListRowElement>
                 {new Date(borrowing.returnDate).toLocaleDateString()}
               </ListRowElement>
-              {/* <ListRowElement>{borrowing.fee}</ListRowElement> */}
               <ListRowElement button>
                 <Button
                   disabled={borrowing.actualReturnDate < borrowing.returnDate}
@@ -53,27 +62,27 @@ const MyAccountPage = () => {
                   Przedłuż
                 </Button>
               </ListRowElement>
-            </StyledListRow>
+            </ListRow>
           ))}
         </List>
       </Wrapper>
       <Wrapper>
         <Title>Zarezewowane</Title>
         <List>
-          <ListRow>
+          <ListRow border>
             <ListRowElement header>Tytuł</ListRowElement>
             <ListRowElement header>Autor</ListRowElement>
           </ListRow>
           {booked.map((booking) => (
-            <StyledListRow>
-              <ListRowElement>{booking.book.release.title}</ListRowElement>
+            <ListRow>
+              <ListRowElement>{booking.book.release.name}</ListRowElement>
               <ListRowElement>{booking.book.release.author}</ListRowElement>
               <ListRowElement button>
                 <Button onClick={() => handleCancelBooking(booking.id)}>
                   Anuluj rezerwację
                 </Button>
               </ListRowElement>
-            </StyledListRow>
+            </ListRow>
           ))}
         </List>
       </Wrapper>
@@ -90,10 +99,6 @@ const Title = styled.h2`
   width: 100%;
   text-align: center;
   margin: 1em 0;
-`;
-
-const StyledListRow = styled(ListRow)`
-  border: unset;
 `;
 
 export default MyAccountPage;
