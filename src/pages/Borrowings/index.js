@@ -35,7 +35,7 @@ const BorrowingsPage = () => {
       bookNameLike: title.length > 0 ? title : undefined,
       authorLike: author.length > 0 ? author : undefined,
       number: number.length > 0 ? number : undefined,
-    }).then((books) => setResults(books));
+    }).then((books) => books && setResults(books));
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

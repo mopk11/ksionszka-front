@@ -15,8 +15,8 @@ const MyAccountPage = () => {
 
   const fetchData = () => {
     Promise.all([
-      fetchReservations().then((reservations) => setBooked(reservations)),
-      fetchLoans().then((loans) => setBorrowed(loans)),
+      fetchReservations().then((reservations) => reservations && setBooked(reservations)),
+      fetchLoans().then((loans) => loans && setBorrowed(loans)),
     ]);
   };
 

@@ -13,7 +13,7 @@ const UsersPage = () => {
   const openUser = (id) => navigate(`/users/${id}`);
 
   React.useEffect(() => {
-    fetchUsers().then((res) => setUsers(res));
+    fetchUsers().then((res) => res && setUsers(res));
   }, []);
 
   return (

@@ -32,7 +32,7 @@ const SearchPage = () => {
       authorLike: author.length > 0 ? author : undefined,
       releaseYear: year.length > 0 ? year : undefined,
       genre: genre.length > 0 ? genre : undefined,
-    }).then((books) => setResults(books));
+    }).then((books) => books && setResults(books));
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

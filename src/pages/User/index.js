@@ -13,8 +13,8 @@ const UserPage = () => {
 
   React.useEffect(() => {
     Promise.all([
-      fetchUser(params.id).then((res) => setUser(res)),
-      fetchUserLoans(params.id).then((res) => setBorrowings(res)),
+      fetchUser(params.id).then((res) => res && setUser(res)),
+      fetchUserLoans(params.id).then((res) => res && setBorrowings(res)),
     ]);
   }, [params.id]);
 
