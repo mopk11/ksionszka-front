@@ -20,6 +20,7 @@ export const createReservation = async (id) => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ bookId: id }),
     }

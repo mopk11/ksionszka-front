@@ -38,6 +38,7 @@ export const createLoan = async (bookId, email) => {
     method: "POST",
     headers: {
       Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({ bookId, username: email }),
   });

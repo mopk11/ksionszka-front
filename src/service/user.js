@@ -2,6 +2,9 @@ export const fetchToken = async (username, password) => {
   const response = await fetch(process.env.REACT_APP_API_URL + "/login", {
     method: "POST",
     body: JSON.stringify({ username, password }),
+    headers: {
+      "Content-Type": "application/json"
+    }
   });
   const json = await response.json();
   if (!json.token) return false;
@@ -26,7 +29,7 @@ export const isUserAnAdmin = () => {
 export const fetchUsers = async () => {
   const response = await fetch(process.env.REACT_APP_API_URL + "/users", {
     headers: {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${getToken()}`
     },
   });
   const json = await response.json();
@@ -47,6 +50,7 @@ export const register = async (email, firstName, lastName, password) => {
     body: JSON.stringify({ email, firstName, lastName, password }),
     headers: {
       Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json"
     },
   });
   return await response.json();
