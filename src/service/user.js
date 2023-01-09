@@ -1,5 +1,5 @@
 export const fetchToken = async (username, password) => {
-  const response = await fetch(process.env.API_URL + "/login", {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/login", {
     method: "POST",
     body: JSON.stringify({ username, password }),
   });
@@ -24,7 +24,7 @@ export const isUserAnAdmin = () => {
 };
 
 export const fetchUsers = async () => {
-  const response = await fetch(process.env.API_URL + "/users", {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/users", {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -34,7 +34,7 @@ export const fetchUsers = async () => {
 };
 
 export const fetchUser = async (id) => {
-  const response = await fetch(process.env.API_URL + "/users/" + id, {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/users/" + id, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -43,7 +43,7 @@ export const fetchUser = async (id) => {
 };
 
 export const register = async (email, firstName, lastName, password) => {
-  const response = await fetch(process.env.API_URL + "/register", {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/register", {
     body: JSON.stringify({ email, firstName, lastName, password }),
     headers: {
       Authorization: `Bearer ${getToken()}`,
