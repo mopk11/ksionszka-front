@@ -20,6 +20,8 @@ import BookingsPage from "./pages/Bookings";
 import BorrowingsPage from "./pages/Borrowings";
 import UserPage from "./pages/User";
 import UsersPage from "./pages/Users";
+import BooksPage from "./pages/Books";
+import ReleasesPage from "./pages/Releases";
 
 const App = () => {
   const isLoggedIn = !!getToken();
@@ -52,6 +54,8 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/logout" element={<LogOutPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/books" element={<BooksPage />} />
+            <Route path="/releases" element={<ReleasesPage />} />
             <Route path="/reservations" element={<BookingsPage />} />
             <Route path="/borrowings" element={<BorrowingsPage />} />
             <Route path="/users" element={<UsersPage />} />

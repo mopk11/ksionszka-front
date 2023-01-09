@@ -13,6 +13,8 @@ export const useUserNavbarLinks = () => {
 export const useAdminNavbarLinks = () => {
   const navigate = useNavigate();
   return [
+    { name: "Książki", redirect: () => navigate("/books") },
+    { name: "Wydania", redirect: () => navigate("/releases") },
     { name: "Rezerwacje", redirect: () => navigate("/reservations") },
     { name: "Wypożyczenia", redirect: () => navigate("/borrowings") },
     { name: "Użytkownicy", redirect: () => navigate("/users") },
