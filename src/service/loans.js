@@ -33,14 +33,14 @@ export const fetchUserLoans = async (userId) => {
   return json.content;
 };
 
-export const createLoan = async (bookId, email, releaseId) => {
+export const createLoan = async (bookingId, email) => {
   const response = await fetch(process.env.REACT_APP_API_URL + "/loans", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${getToken()}`,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ bookId, username: email, releaseId }),
+    body: JSON.stringify({ bookingId, username: email }),
   });
   return await response.json();
 };
