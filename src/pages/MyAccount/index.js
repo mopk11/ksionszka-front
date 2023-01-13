@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "../../components/Button";
 import List, { ListRow, ListRowElement } from "../../components/List";
 import Page from "../../components/Page";
-import { extendLoan, fetchLoans, requestLoanExtension } from "../../service/loans";
+import { fetchLoans, requestLoanExtension } from "../../service/loans";
 import {
   cancelReservation,
   fetchReservations,
@@ -56,7 +56,7 @@ const MyAccountPage = () => {
               </ListRowElement>
               <ListRowElement button>
                 <Button
-                  disabled={borrowing.actualReturnDate < borrowing.returnDate}
+                  disabled={borrowing.actualReturnDate < borrowing.returnDate || borrowing.requestedReturnDateExtensionAt}
                   onClick={() => handleRenew(borrowing.id)}
                 >
                   Przedłuż
