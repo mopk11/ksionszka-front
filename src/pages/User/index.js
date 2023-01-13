@@ -3,13 +3,26 @@ import Page from "../../components/Page";
 import List, { ListRow, ListRowElement } from "../../components/List";
 import styled from "styled-components";
 import { fetchUser } from "../../service/user";
-import { fetchUserLoans } from "../../service/loans";
+import { extendLoan, fetchUserLoans, returnLoan } from "../../service/loans";
 import { useParams } from "react-router-dom";
+import Button from "../../components/Button";
 
 const UserPage = () => {
   const [user, setUser] = React.useState([]);
   const [borrowings, setBorrowings] = React.useState([]);
   const params = useParams();
+
+  const handleReturn = (loanId) => {
+    returnLoan(loanId).then(() =>
+      fetchUserLoans(params.id).then((res) => res && setBorrowings(res))
+    );
+  };
+
+  const handleRenew = (loanId) => {
+    extendLoan(loanId).then(() =>
+      fetchUserLoans(params.id).then((res) => res && setBorrowings(res))
+    );
+  };
 
   React.useEffect(() => {
     Promise.all([
@@ -57,6 +70,16 @@ const UserPage = () => {
               </ListRowElement>
               <ListRowElement>
                 {new Date(borrowing.returnDate).toLocaleDateString()}
+              </ListRowElement>
+              <ListRowElement button>
+                <Button onClick={() => handleReturn(borrowing.id)}>
+                  Zwróć
+                </Button>
+              </ListRowElement>
+              <ListRowElement button>
+                <Button onClick={() => handleRenew(borrowing.id)}>
+                  Przedłuż
+                </Button>
               </ListRowElement>
             </ListRow>
           ))}
