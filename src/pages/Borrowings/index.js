@@ -15,9 +15,9 @@ const BorrowingsPage = () => {
   const [borrowingPopupBook, setBorrowingPopupBook] = React.useState();
   const [borrowingPopupEmail, setBorrowingPopupEmail] = React.useState();
 
-  const handleBorrow = (id, email) => {
+  const handleBorrow = (bookId, email) => {
     if (borrowingPopupEmail.length < 1) return;
-    createLoan(id, email)
+    createLoan(bookId, email)
       .then(() => fetchBooks())
       .then(() => {
         setBorrowingPopupEmail(undefined);
