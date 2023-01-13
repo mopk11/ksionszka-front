@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "../../components/Button";
 import List, { ListRow, ListRowElement } from "../../components/List";
 import Page from "../../components/Page";
-import { extendLoan, fetchLoans } from "../../service/loans";
+import { extendLoan, fetchLoans, requestLoanExtension } from "../../service/loans";
 import {
   cancelReservation,
   fetchReservations,
@@ -21,7 +21,7 @@ const MyAccountPage = () => {
   };
 
   const handleRenew = (id) => {
-    extendLoan(id).then(() => fetchData());
+    requestLoanExtension(id).then(() => fetchData());
   };
 
   const handleCancelBooking = (id) => {
