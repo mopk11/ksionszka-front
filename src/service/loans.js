@@ -40,7 +40,7 @@ export const createLoan = async (bookingId, email) => {
       Authorization: `Bearer ${getToken()}`,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ bookingId, username: email }),
+    body: JSON.stringify({ reservationId: bookingId, username: email }),
   });
   return await response.json();
 };
