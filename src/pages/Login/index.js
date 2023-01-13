@@ -2,7 +2,7 @@
 import { fetchToken } from "../../service/user";
 import * as Yup from "yup";
 import { Formik, Field, ErrorMessage, Form } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ButtonStyle,
   ContainerForm,
@@ -20,8 +20,6 @@ import {
 } from "../../features/style/login_singup";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-
   return (
     <Formik
       initialValues={{
@@ -36,7 +34,7 @@ const LoginPage = () => {
         password: Yup.string().required("Proszę wprowadzić hasło"),
       })}
       onSubmit={(values) => {
-        fetchToken(values.email, values.password).then(() => navigate("/"));
+        fetchToken(values.email, values.password).then(() => window.location.pathname = "/");
       }}
     >
       <Page>

@@ -10,5 +10,5 @@ export const findBooksInLibrary = async (filters) => {
     }
   );
   const json = await response.json();
-  return json;
+  return json.content;
 };

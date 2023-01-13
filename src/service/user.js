@@ -1,4 +1,5 @@
 export const fetchToken = async (username, password) => {
+  console.log("fetching")
   const response = await fetch(process.env.REACT_APP_API_URL + "/login", {
     method: "POST",
     body: JSON.stringify({ username, password }),
@@ -7,7 +8,7 @@ export const fetchToken = async (username, password) => {
     }
   });
   const json = await response.json();
-  if (!json.token) return false;
+  if (!json.bearerToken) return false;
   localStorage.setItem("token", json.bearerToken);
   localStorage.setItem("role", json.user.role);
   return true;

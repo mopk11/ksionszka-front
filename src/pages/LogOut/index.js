@@ -1,9 +1,9 @@
-import { Navigate } from "react-router-dom";
 import { logOut } from "../../service/user";
 
 const LogOutPage = () => {
     logOut();
-    return <Navigate to="/login" />
+    window.location.pathname = "/login";
+    return <div />
 }
 
 export default LogOutPage;
