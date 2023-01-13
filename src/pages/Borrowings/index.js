@@ -32,9 +32,9 @@ const BorrowingsPage = () => {
 
   const fetchBooks = () => {
     findBooksInLibrary({
-      bookNameLike: title.length > 0 ? title : "",
+      releaseTitleLike: title.length > 0 ? title : "",
       authorLike: author.length > 0 ? author : "",
-      number: number.length > 0 ? number : "",
+      releaseIdLike: number.length > 0 ? number : "",
     }).then((books) => books && setResults(books));
   };
 

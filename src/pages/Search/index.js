@@ -28,10 +28,10 @@ const SearchPage = () => {
 
   const fetchBooks = () => {
     findBooksInLibrary({
-      bookNameLike: title.length > 0 ? title : undefined,
-      authorLike: author.length > 0 ? author : undefined,
-      releaseYear: year.length > 0 ? year : undefined,
-      genre: genre.length > 0 ? genre : undefined,
+      releaseTitleLike: title.length > 0 ? title : "",
+      authorLike: author.length > 0 ? author : "",
+      releaseYear: year.length > 0 ? year : "",
+      genre: genre.length > 0 ? genre : "",
     }).then((books) => books && setResults(books));
   };
 
