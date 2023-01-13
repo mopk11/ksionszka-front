@@ -82,7 +82,7 @@ const SearchPage = () => {
                   Rok wydania: {result.release.releaseYear}
                 </ListRowElement>
                 <ListRowElement button>
-                  <Button onClick={handleBooking}>Rezerwuj</Button>
+                  <Button onClick={() => handleBooking(result.id)}>Rezerwuj</Button>
                 </ListRowElement>
               </ListRow>
             ))}
