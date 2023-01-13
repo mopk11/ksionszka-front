@@ -19,11 +19,11 @@ const BookingsPage = () => {
   };
 
   const handleBorrow = (id) => {
-    createLoan(id);
+    createLoan(id).then(() => fetchData());
   };
 
   const handleCancelBooking = (id) => {
-    cancelReservation(id);
+    cancelReservation(id).then(() => fetchData());
   };
 
   React.useEffect(() => {

@@ -22,7 +22,8 @@ const BorrowingsPage = () => {
       .then(() => {
         setBorrowingPopupEmail(undefined);
         setBorrowingPopupBook(undefined);
-      });
+      })
+      .then(() => fetchBooks());
   };
 
   const handleSubmit = (e) => {
