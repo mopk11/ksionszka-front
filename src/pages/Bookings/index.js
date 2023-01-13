@@ -18,8 +18,8 @@ const BookingsPage = () => {
     ]);
   };
 
-  const handleBorrow = (bookId, email) => {
-    createLoan(bookId, email).then(() => fetchData());
+  const handleBorrow = (bookId, email, releaseId) => {
+    createLoan(bookId, email, releaseId).then(() => fetchData());
   };
 
   const handleCancelBooking = (id) => {
@@ -43,7 +43,7 @@ const BookingsPage = () => {
             <ListRowElement header>Użytkownik</ListRowElement>
           </ListRow>
           {bookings.map((booking) => (
-            <ListRow>
+            <ListRow key={booking.id}>
               <ListRowElement>{booking.book.release.title}</ListRowElement>
               <ListRowElement>{booking.book.release.author}</ListRowElement>
               <ListRowElement>{booking.book.release.number}</ListRowElement>
@@ -57,7 +57,7 @@ const BookingsPage = () => {
                 </Button>
               </ListRowElement>
               <ListRowElement button>
-                <Button onClick={() => handleBorrow(booking.id, booking.user.email)}>
+                <Button onClick={() => handleBorrow(booking.id, booking.user.email, booking.book.release.id)}>
                   Wypożycz
                 </Button>
               </ListRowElement>
