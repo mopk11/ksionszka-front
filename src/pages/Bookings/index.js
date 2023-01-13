@@ -18,8 +18,8 @@ const BookingsPage = () => {
     ]);
   };
 
-  const handleBorrow = (id) => {
-    createLoan(id).then(() => fetchData());
+  const handleBorrow = (bookId, email) => {
+    createLoan(bookId, email).then(() => fetchData());
   };
 
   const handleCancelBooking = (id) => {
@@ -57,7 +57,7 @@ const BookingsPage = () => {
                 </Button>
               </ListRowElement>
               <ListRowElement button>
-                <Button onClick={() => handleBorrow(booking.id)}>
+                <Button onClick={() => handleBorrow(booking.id, booking.user.email)}>
                   Wypożycz
                 </Button>
               </ListRowElement>
