@@ -59,7 +59,7 @@ const App = () => {
             <Route path="/reservations" element={<BookingsPage />} />
             <Route path="/borrowings" element={<BorrowingsPage />} />
             <Route path="/users" element={<UsersPage />} />
-            <Route path="/users/{id}" element={<UserPage />} />
+            <Route path="/users/:id" element={<UserPage />} />
           </Routes>
         </RoutesWrapper>
       </Page>
