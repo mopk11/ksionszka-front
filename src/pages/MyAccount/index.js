@@ -45,7 +45,7 @@ const MyAccountPage = () => {
             <ListRowElement header>Termin oddania</ListRowElement>
           </ListRow>
           {borrowed.map((borrowing) => (
-            <ListRow>
+            <ListRow key={borrowing.id}>
               <ListRowElement>{borrowing.book.release.title}</ListRowElement>
               <ListRowElement>{borrowing.book.release.author}</ListRowElement>
               <ListRowElement>
@@ -74,7 +74,7 @@ const MyAccountPage = () => {
             <ListRowElement header>Autor</ListRowElement>
           </ListRow>
           {booked.map((booking) => (
-            <ListRow>
+            <ListRow key={booking.id}>
               <ListRowElement>{booking.book.release.title}</ListRowElement>
               <ListRowElement>{booking.book.release.author}</ListRowElement>
               <ListRowElement button>

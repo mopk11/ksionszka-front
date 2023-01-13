@@ -9,7 +9,7 @@ export const fetchReservations = async () => {
       },
     }
   );
-  const json = response.json();
+  const json = await response.json();
   return json.content;
 };
 
