@@ -49,10 +49,12 @@ const UserPage = () => {
           </ListRow>
           {borrowings.map((borrowing) => (
             <ListRow>
-              <ListRowElement>{borrowing.title}</ListRowElement>
-              <ListRowElement>{borrowing.author}</ListRowElement>
-              <ListRowElement>{borrowing.number}</ListRowElement>
-              <ListRowElement>{borrowing.date}</ListRowElement>
+              <ListRowElement>{borrowing.book.release.title}</ListRowElement>
+              <ListRowElement>{borrowing.book.release.author}</ListRowElement>
+              <ListRowElement>{borrowing.book.release.id}</ListRowElement>
+              <ListRowElement>
+                {new Date(borrowing.loanDate).toLocaleDateString()}
+              </ListRowElement>
               <ListRowElement>
                 {new Date(borrowing.returnDate).toLocaleDateString()}
               </ListRowElement>
