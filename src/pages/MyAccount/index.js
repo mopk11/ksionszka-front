@@ -75,7 +75,7 @@ const MyAccountPage = () => {
           </ListRow>
           {booked.map((booking) => (
             <ListRow>
-              <ListRowElement>{booking.book.release.name}</ListRowElement>
+              <ListRowElement>{booking.book.release.title}</ListRowElement>
               <ListRowElement>{booking.book.release.author}</ListRowElement>
               <ListRowElement button>
                 <Button onClick={() => handleCancelBooking(booking.id)}>

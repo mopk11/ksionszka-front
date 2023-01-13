@@ -75,7 +75,7 @@ const SearchPage = () => {
             {results.map((result) => (
               <ListRow border key={result.id}>
                 <ListRowElement description={result.release.author}>
-                  {result.release.name}
+                  {result.release.title}
                 </ListRowElement>
                 <ListRowElement>{result.release.genre}</ListRowElement>
                 <ListRowElement description={"Nr katalogowy: " + result.release.number}>
