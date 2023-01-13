@@ -1,7 +1,7 @@
 import { getToken } from "./user";
 
 export const fetchLoans = async () => {
-  const response = await fetch(process.env.REACT_APP_API_URL + "/loans", {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/loans?returned=false", {
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -22,7 +22,7 @@ export const fetchLoan = async (id) => {
 
 export const fetchUserLoans = async (userId) => {
   const response = await fetch(
-    process.env.REACT_APP_API_URL + "/loans/users/" + userId,
+    process.env.REACT_APP_API_URL + "/loans/users/" + userId + "?returned=false",
     {
       headers: {
         Authorization: `Bearer ${getToken()}`,

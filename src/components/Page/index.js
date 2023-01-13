@@ -7,7 +7,7 @@ const Page = styled.div`
   padding-top: 8em;
 
   @media (max-width: 928px) {
-    padding-top: 30em;
+    padding-top: 50em;
   }
 `;
 
