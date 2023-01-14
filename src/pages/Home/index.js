@@ -8,7 +8,7 @@ const HomePage = () => {
   const [topBooks, setTopBooks] = React.useState([]);
 
   React.useEffect(() => {
-    fetchTopBooks(5).then(() => topBooks && setTopBooks(topBooks));
+    fetchTopBooks(5).then((b) => b && setTopBooks(b));
   }, [topBooks]);
 
   return (
@@ -27,9 +27,9 @@ const HomePage = () => {
       <TopBooksContainer>
         <TopBooksWrapper>
           <TopBooksContent>
-            {topBooks.map((book, index) => (
-              <TopBookRow>
-                {index + 1}. {book.title}
+            {topBooks.map((release, index) => (
+              <TopBookRow key={release.id}>
+                {index + 1}. {release.title}
               </TopBookRow>
             ))}
           </TopBooksContent>
@@ -87,7 +87,7 @@ const TopBooksTitleWrapper = styled.div`
   background-color: #fbf8f3;
   border: 1px solid #707070;
   width: 100%;
-  padding: 2em;
+  padding: 2em 0;
   text-align: center;
   color: #363e27;
   font-size: 30px;
@@ -108,7 +108,7 @@ const TopBooksWrapper = styled(Panel)`
   margin: 5em;
 
   @media (max-width: 928px) {
-    width: calc(100% - 10em)
+    width: calc(100% - 10em);
   }
 `;
 
@@ -119,7 +119,7 @@ const Image = styled.img`
   object-fit: cover;
 
   @media (max-width: 928px) {
-    width: calc(100% - 10em)
+    width: calc(100% - 10em);
   }
 `;
 
@@ -129,7 +129,7 @@ const TopBooksContent = styled.div`
   flex-direction: column;
 `;
 
-const TopBookRow = styled.h4`
+const TopBookRow = styled.h3`
   border-bottom: 1px solid #707070;
 `;
 
