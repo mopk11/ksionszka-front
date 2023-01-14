@@ -72,7 +72,7 @@ const SearchPage = () => {
               placeholder="Gatónek"
             >
               {genres.map((g) => (
-                <option value={g}>g</option>
+                <option value={g}>{g}</option>
               ))}
             </Select>
             <Button type="submit">Wyszukaj</Button>

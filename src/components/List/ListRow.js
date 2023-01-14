@@ -1,3 +1,4 @@
+import { TableRow } from "@mui/material";
 import styled from "styled-components";
 
 export const ListRow = (props) => {
@@ -8,15 +9,18 @@ export const ListRow = (props) => {
   );
 };
 
-const RowWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 0 2em;
-  gap: 7.5em;
+// const RowWrapper = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   margin: 0 2em;
+//   gap: 7.5em;
 
-  ${(props) => props.border && "border-bottom: 1px solid #707070;"}
+//   ${(props) => props.border && "border-bottom: 1px solid #707070;"}
 
-  @media (max-width: 928px) {
-    width: fit-content;
-  }
+//   @media (max-width: 928px) {
+//     width: fit-content;
+//   }
+// `;
+
+const RowWrapper = styled(TableRow)`
 `;

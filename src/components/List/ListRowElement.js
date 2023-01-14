@@ -1,35 +1,26 @@
+import { TableCell } from "@mui/material";
 import styled from "styled-components";
 
 export const ListRowElement = (props) => {
   if (props.button) {
     return (
-      <ButtonWrapper className={props.className}>
+      <TableCell className={props.className}>
         {props.children}
-      </ButtonWrapper>
+      </TableCell>
     );
   }
   return (
-    <RowElementWrapper className={props.className}>
+    <TableCell align={props.center && "center"} className={props.className}>
       {props.header ? (
         <Header>{props.children}</Header>
       ) : (
         <Title>{props.children}</Title>
       )}
       {props.description && <Description>{props.description}</Description>}
-    </RowElementWrapper>
+    </TableCell>
   );
 };
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1em 0;
-`;
-
-const RowElementWrapper = styled.div`
-    margin: 1em 0;
-`;
 
 const Header = styled.h2`
   font-weight: 400;
