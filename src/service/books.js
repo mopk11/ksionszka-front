@@ -15,17 +15,27 @@ export const findBooksInLibrary = async (filters) => {
   return json.content;
 };
 
-export const fetchGenres = async () => {
+export const fetchAllBooks = async () => {
   const response = await fetch(
-    process.env.REACT_APP_API_URL + "/genres",
+    process.env.REACT_APP_API_URL + "/books",
     {
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },
     }
   );
+  const json = await response.json();
+  return json.content;
+};
+
+export const fetchGenres = async () => {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/genres", {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
   return await response.json();
-}
+};
 
 export const fetchTopBooks = async (amount) => {
   const response = await fetch(
@@ -38,4 +48,39 @@ export const fetchTopBooks = async (amount) => {
   );
   const json = await response.json();
   return json.content;
-}
+};
+
+export const fetchReleases = async () => {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/releases", {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  const json = await response.json();
+  return json.content;
+};
+
+export const createRelease = async (release) => {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/releases", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(release),
+  });
+  return await response.json();
+};
+
+export const createBook = async (release) => {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/books", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(release),
+  });
+  return await response.json();
+};
+

@@ -48,9 +48,9 @@ export const fetchUser = async (id) => {
 
 export const register = async (email, firstName, lastName, password) => {
   const response = await fetch(process.env.REACT_APP_API_URL + "/register", {
+    method: "POST",
     body: JSON.stringify({ email, firstName, lastName, password }),
     headers: {
-      Authorization: `Bearer ${getToken()}`,
       "Content-Type": "application/json"
     },
   });
