@@ -9,7 +9,7 @@ const HomePage = () => {
 
   React.useEffect(() => {
     fetchTopBooks(5).then((b) => b && setTopBooks(b));
-  }, [topBooks]);
+  }, []);
 
   return (
     <StyledPage>
