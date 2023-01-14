@@ -2,7 +2,7 @@
 import { register } from "../../service/user";
 import * as Yup from "yup";
 import { Formik, Field, ErrorMessage, Form } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ButtonStyle,
   ContainerForm,
@@ -20,8 +20,6 @@ import {
 } from "../../features/style/login_singup";
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
   return (
     <Formik
       initialValues={{
@@ -46,7 +44,7 @@ const SignUp = () => {
       })}
       onSubmit={(values) => {
         register(values.email, values.fname, values.lname, values.password)
-          .then(() => navigate("/login"))
+          .then(() => window.location.pathname = "/login")
       }}
     >
       <Page>
