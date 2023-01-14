@@ -48,6 +48,7 @@ const MyAccountPage = () => {
             <ListRow key={borrowing.id}>
               <ListRowElement>{borrowing.book.release.title}</ListRowElement>
               <ListRowElement>{borrowing.book.release.author}</ListRowElement>
+              <ListRowElement>{borrowing.book.release.id}</ListRowElement>
               <ListRowElement>
                 {new Date(borrowing.loanDate).toLocaleDateString()}
               </ListRowElement>

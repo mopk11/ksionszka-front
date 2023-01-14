@@ -39,11 +39,11 @@ const Container = styled.div`
 const Logo = styled.img`
   padding: 1em;
   margin-left: 1em;
+  object-fit: contain;
   cursor: pointer;
 
   @media (max-width: 928px) {
     height: 100px;
-    object-fit: contain;
     margin-left: unset;
   }
 `;
