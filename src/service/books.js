@@ -26,3 +26,16 @@ export const fetchGenres = async () => {
   );
   return await response.json();
 }
+
+export const fetchTopBooks = async (amount) => {
+  const response = await fetch(
+    process.env.REACT_APP_API_URL + "/releases/top?pageSize=" + amount,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    }
+  );
+  const json = await response.json();
+  return json.content;
+}

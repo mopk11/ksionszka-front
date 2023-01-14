@@ -87,7 +87,7 @@ const SearchPage = () => {
                 </ListRowElement>
                 <ListRowElement>{result.release.genre}</ListRowElement>
                 <ListRowElement
-                  description={"Nr katalogowy: " + result.release.number}
+                  description={"Nr katalogowy: " + result.release.id}
                 >
                   Rok wydania: {result.release.releaseYear}
                 </ListRowElement>
