@@ -10,6 +10,26 @@ export const fetchLoans = async () => {
   return json.content;
 };
 
+export const fetchDelayedLoans = async () => {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/loans?returned=false&delayed=true", {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  const json = await response.json();
+  return json.content;
+};
+
+export const fetchLoansWithRequestedExtension = async () => {
+  const response = await fetch(process.env.REACT_APP_API_URL + "/loans?returned=false&delayed=false&requestedExtension=true", {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  const json = await response.json();
+  return json.content;
+};
+
 export const fetchLoan = async (id) => {
   const response = await fetch(process.env.REACT_APP_API_URL + "/loans/" + id, {
     headers: {

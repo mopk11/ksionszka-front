@@ -6,7 +6,7 @@ import List, { ListRow, ListRowElement } from "../../components/List";
 import Page from "../../components/Page";
 import Select from "../../components/Select";
 import TextField from "../../components/TextField";
-import { findBooksInLibrary } from "../../service/books";
+import { fetchGenres, findBooksInLibrary } from "../../service/books";
 import { createReservation } from "../../service/reservations";
 
 const SearchPage = () => {
@@ -14,6 +14,7 @@ const SearchPage = () => {
   const [author, setAuthor] = React.useState("");
   const [year, setYear] = React.useState("");
   const [genre, setGenre] = React.useState("");
+  const [genres, setGenres] = React.useState([]);
   const [results, setResults] = React.useState([]);
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ const SearchPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchBooks();
-  }
+  };
 
   const fetchBooks = () => {
     findBooksInLibrary({
@@ -35,8 +36,11 @@ const SearchPage = () => {
     }).then((books) => books && setResults(books));
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => fetchBooks(), []);
+  React.useEffect(() => {
+    fetchBooks();
+    fetchGenres().then((res) => setGenres(res));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <StyledPage>
@@ -66,7 +70,11 @@ const SearchPage = () => {
               onChange={(e) => setGenre(e.target.value)}
               name="genre"
               placeholder="Gatónek"
-            />
+            >
+              {genres.map((g) => (
+                <option value={g}>g</option>
+              ))}
+            </Select>
             <Button type="submit">Wyszukaj</Button>
           </FiltersForm>
         </FiltersWrapper>
@@ -78,11 +86,15 @@ const SearchPage = () => {
                   {result.release.title}
                 </ListRowElement>
                 <ListRowElement>{result.release.genre}</ListRowElement>
-                <ListRowElement description={"Nr katalogowy: " + result.release.number}>
+                <ListRowElement
+                  description={"Nr katalogowy: " + result.release.number}
+                >
                   Rok wydania: {result.release.releaseYear}
                 </ListRowElement>
                 <ListRowElement button>
-                  <Button onClick={() => handleBooking(result.id)}>Rezerwuj</Button>
+                  <Button onClick={() => handleBooking(result.id)}>
+                    Rezerwuj
+                  </Button>
                 </ListRowElement>
               </ListRow>
             ))}
